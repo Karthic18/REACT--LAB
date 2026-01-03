@@ -1,33 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
-
+import React,{ useState }  from 'react';
 function App() {
-  const paragraphs = [
-    { text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", bg: "#ffd700" }, // Gold
-    { text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", bg: "#90ee90" }, // LightGreen
-    { text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.", bg: "#87cefa" }, // LightSkyBlue
-    { text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.", bg: "#ffb6c1" }, // LightPink
-    { text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.", bg: "#ffa500" }, // Orange
-  ];
-
+  const[count,setcount]=useState([]);
+  const [text,setText]=useState("")
+  const addTask=()=>{
+    setcount([...tasks, {name:text,completed:false}]);
+    setText("");
+  }
+  const deleteTask=(index)=>{
+    setTask(tasks.filter((_,i)=>i!==index));
+  }
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "16px", padding: "20px" }}>
-      {paragraphs.map((p, index) => (
-        <p
-          key={index}
-          style={{
-            backgroundColor: p.bg,
-            color: "#000",
-            padding: "8px",
-          }}
-        >
-          {p.text}
-        </p>
-      ))}
-    </div>
-  );
+    <div>
+      <h1>To-Do list</h1>
+      <input
+      value={text}
+      Onchange={ (e)=>setText(e.target.value)}
+      placeholder='Enter Task'
+      />
+      <button onClick={addTask}>Add</button>
+      <ul>
+        {count.map((task,index)=>(
+          <li key={index}>
+            <input type="checkbox" checked={task.completed} />
+            <span>{task.name}</span>
+            <button>delete</button>
+          </li>
+        ))}
+      </ul>
+      </div>
+  )
 }
-
-export default App;
